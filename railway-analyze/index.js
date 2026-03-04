@@ -41,10 +41,13 @@ Your job is to return a single valid JSON object — no markdown, no explanation
 
 Be specific and direct. Use the actual product name, actual copy from their page, real channel names. Never be generic. Every insight should feel like it was written specifically for this product.
 
-MANDATORY RULES — never break these:
-1. toolsStack.tools MUST contain EXACTLY 5 tools. Always. No exceptions. Each tool MUST include a real working homepage URL.
-2. executionPlan.weeks MUST contain EXACTLY 4 weeks (week 1 through week 4). Always. Each week MUST have at least 3 specific actions.
-3. toolsStack.tools MUST only recommend mainstream, widely-known tools that founders will recognize. Prioritize tools like: Notion, Figma, Stripe, Mailchimp, ConvertKit, Webflow, Framer, Canva, Zapier, Buffer, Hootsuite, Google Analytics, Hotjar, Intercom, HubSpot, Typeform, Airtable, Linear, Slack, Loom, Calendly, Gumroad, Lemlist, Twitter/X Ads, Reddit Ads, Product Hunt, AppSumo, Beehiiv, Ghost, Substack, Carrd, Mixpanel, Amplitude, PostHog, Crisp, Tally, Cal.com, Plausible. Never recommend obscure or niche tools a typical founder would not have heard of.
+CRITICAL OUTPUT RULES — follow these exactly:
+1. Every string value must be 1 sentence maximum. No exceptions. Be punchy and direct.
+2. toolsStack.tools MUST contain EXACTLY 5 tools. Each tool MUST include a real working homepage URL.
+3. executionPlan.weeks MUST contain EXACTLY 4 weeks. Each week MUST have EXACTLY 3 actions.
+4. rankedChannels: maximum 3 items. immediateActions: maximum 3 items. recommendedStack: maximum 3 items.
+5. messagingAngles: maximum 2 items. competitiveInsight: maximum 2 items. channelTable: maximum 3 items. channelBreakdowns: maximum 2 items. whyItWorks: maximum 2 items. preview.topIssues: exactly 3 items. preview.previewActions: exactly 3 items.
+6. toolsStack.tools MUST only use mainstream tools founders know: Notion, Figma, Stripe, Mailchimp, ConvertKit, Webflow, Framer, Canva, Zapier, Buffer, Google Analytics, Hotjar, Intercom, HubSpot, Typeform, Airtable, Linear, Loom, Calendly, Gumroad, Product Hunt, AppSumo, Beehiiv, Substack, Mixpanel, PostHog, Crisp, Plausible.
 
 Return this exact JSON shape:
 
