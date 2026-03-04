@@ -162,6 +162,13 @@ export async function POST(req: NextRequest) {
     // Scrape the product page
     const pageContent = await scrapeUrl(url);
 
+    if (!pageContent || pageContent.trim().length < 100) {
+      return NextResponse.json(
+        { error: "Could not analyze your landing page — make sure the URL is publicly accessible and try again." },
+        { status: 422 }
+      );
+    }
+
     // answers[0] is undefined (step 0 is the URL input, not a choice)
     // filter it out so destructuring aligns: budget, productType, stage, goal
     const [budget, productType, stage, goal] = (answers as string[]).filter(

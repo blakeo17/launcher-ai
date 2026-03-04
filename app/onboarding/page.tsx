@@ -65,6 +65,15 @@ export default function Onboarding() {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
+      // Validate URL before submitting
+      try {
+        const parsed = new URL(url);
+        if (!["http:", "https:"].includes(parsed.protocol)) throw new Error();
+      } catch {
+        setError("Please enter a valid URL starting with https://");
+        return;
+      }
+
       setAnalyzing(true);
       setError(null);
       try {
@@ -72,7 +81,6 @@ export default function Onboarding() {
         const analyzeUrl = process.env.NEXT_PUBLIC_ANALYZE_URL
           ? `${process.env.NEXT_PUBLIC_ANALYZE_URL}/analyze`
           : "/api/analyze";
-        console.log("Calling analyze at:", analyzeUrl);
         const res = await fetch(analyzeUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },

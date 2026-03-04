@@ -163,6 +163,12 @@ app.post("/analyze", async (req, res) => {
 
     const pageContent = await scrapeUrl(url);
 
+    if (!pageContent || pageContent.trim().length < 100) {
+      return res.status(422).json({
+        error: "Could not analyze your landing page — make sure the URL is publicly accessible and try again.",
+      });
+    }
+
     // answers[0] is undefined (step 0 is URL input, not a choice)
     const [budget, productType, stage, goal] = (answers || []).filter(
       (a) => a !== undefined && a !== null
