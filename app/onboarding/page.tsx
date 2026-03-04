@@ -69,7 +69,8 @@ export default function Onboarding() {
       setError(null);
       try {
         const sessionId = generateSessionId();
-        const res = await fetch("/api/analyze", {
+        const analyzeUrl = process.env.NEXT_PUBLIC_ANALYZE_URL ?? "/api/analyze";
+        const res = await fetch(`${analyzeUrl}/analyze`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url, answers, sessionId }),
