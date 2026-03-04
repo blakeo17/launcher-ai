@@ -12,67 +12,18 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-function extractMeta(html: string, property: string): string {
-  const match =
-    html.match(new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']+)["']`, "i")) ||
-    html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${property}["']`, "i")) ||
-    html.match(new RegExp(`<meta[^>]+name=["']${property}["'][^>]+content=["']([^"']+)["']`, "i")) ||
-    html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+name=["']${property}["']`, "i"));
-  return match?.[1] ?? "";
-}
-
+// Jina AI reader — handles SPAs, Cloudflare, JS-rendered pages. Free, no key needed.
 async function scrapeUrl(url: string): Promise<string> {
   try {
-    const res = await fetch(url, {
+    const res = await fetch(`https://r.jina.ai/${url}`, {
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        Accept: "text/plain",
+        "X-No-Cache": "true",
       },
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(8000),
     });
-    const html = await res.text();
-
-    // Always extract meta tags first — these work even on JS-rendered SPAs
-    const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]?.trim() ?? "";
-    const ogTitle = extractMeta(html, "og:title");
-    const ogDescription = extractMeta(html, "og:description");
-    const description = extractMeta(html, "description");
-    const twitterTitle = extractMeta(html, "twitter:title");
-    const twitterDescription = extractMeta(html, "twitter:description");
-
-    // Extract headings and visible text — useful for SSR pages
-    const headings = [...html.matchAll(/<h[1-3][^>]*>([^<]+)<\/h[1-3]>/gi)]
-      .map((m) => m[1].trim())
-      .filter(Boolean)
-      .slice(0, 20)
-      .join(" | ");
-
-    // Strip scripts/styles then extract body text for SSR content
-    const bodyText = html
-      .replace(/<script[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?<\/style>/gi, "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s{2,}/g, " ")
-      .trim()
-      .slice(0, 5000);
-
-    // Compose the most useful signal at the top
-    const metaSection = [
-      title && `Title: ${title}`,
-      ogTitle && `OG Title: ${ogTitle}`,
-      ogDescription && `OG Description: ${ogDescription}`,
-      description && `Meta Description: ${description}`,
-      twitterTitle && `Twitter Title: ${twitterTitle}`,
-      twitterDescription && `Twitter Description: ${twitterDescription}`,
-      headings && `Headings: ${headings}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    return metaSection
-      ? `${metaSection}\n\nPage text:\n${bodyText}`
-      : bodyText;
+    const text = await res.text();
+    return text.slice(0, 8000);
   } catch {
     return "";
   }
@@ -228,8 +179,8 @@ Founder's answers:
 Analyze this product thoroughly and return the JSON launch plan.`;
 
     const message = await openai.chat.completions.create({
-      model: "gpt-4o",
-      max_tokens: 4096,
+      model: "gpt-4o-mini",
+      max_tokens: 2500,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
