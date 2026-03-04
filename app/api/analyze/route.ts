@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
 
 // Extend function timeout — requires Vercel Pro (60s). On Hobby this is ignored.
 export const maxDuration = 60;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -178,16 +178,14 @@ Founder's answers:
 
 Analyze this product thoroughly and return the JSON launch plan.`;
 
-    const message = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const message = await anthropic.messages.create({
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 2500,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: userPrompt },
-      ],
+      system: SYSTEM_PROMPT,
+      messages: [{ role: "user", content: userPrompt }],
     });
 
-    const raw = message.choices[0]?.message?.content ?? "";
+    const raw = message.content[0]?.type === "text" ? message.content[0].text : "";
 
     // Extract JSON robustly
     const jsonMatch = raw.match(/\{[\s\S]*\}/);
