@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 
+// Extend function timeout — requires Vercel Pro (60s). On Hobby this is ignored.
+export const maxDuration = 60;
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const supabase = createClient(
@@ -9,22 +12,67 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+function extractMeta(html: string, property: string): string {
+  const match =
+    html.match(new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']+)["']`, "i")) ||
+    html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${property}["']`, "i")) ||
+    html.match(new RegExp(`<meta[^>]+name=["']${property}["'][^>]+content=["']([^"']+)["']`, "i")) ||
+    html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+name=["']${property}["']`, "i"));
+  return match?.[1] ?? "";
+}
+
 async function scrapeUrl(url: string): Promise<string> {
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; LaunchAI/1.0)" },
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      },
       signal: AbortSignal.timeout(10000),
     });
     const html = await res.text();
-    // Strip tags, scripts, styles — keep readable text
-    const text = html
+
+    // Always extract meta tags first — these work even on JS-rendered SPAs
+    const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]?.trim() ?? "";
+    const ogTitle = extractMeta(html, "og:title");
+    const ogDescription = extractMeta(html, "og:description");
+    const description = extractMeta(html, "description");
+    const twitterTitle = extractMeta(html, "twitter:title");
+    const twitterDescription = extractMeta(html, "twitter:description");
+
+    // Extract headings and visible text — useful for SSR pages
+    const headings = [...html.matchAll(/<h[1-3][^>]*>([^<]+)<\/h[1-3]>/gi)]
+      .map((m) => m[1].trim())
+      .filter(Boolean)
+      .slice(0, 20)
+      .join(" | ");
+
+    // Strip scripts/styles then extract body text for SSR content
+    const bodyText = html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/<[^>]+>/g, " ")
       .replace(/\s{2,}/g, " ")
       .trim()
-      .slice(0, 8000); // cap at 8k chars to stay within context
-    return text;
+      .slice(0, 5000);
+
+    // Compose the most useful signal at the top
+    const metaSection = [
+      title && `Title: ${title}`,
+      ogTitle && `OG Title: ${ogTitle}`,
+      ogDescription && `OG Description: ${ogDescription}`,
+      description && `Meta Description: ${description}`,
+      twitterTitle && `Twitter Title: ${twitterTitle}`,
+      twitterDescription && `Twitter Description: ${twitterDescription}`,
+      headings && `Headings: ${headings}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    return metaSection
+      ? `${metaSection}\n\nPage text:\n${bodyText}`
+      : bodyText;
   } catch {
     return "";
   }
@@ -160,7 +208,11 @@ export async function POST(req: NextRequest) {
     // Scrape the product page
     const pageContent = await scrapeUrl(url);
 
-    const [budget, productType, stage, goal] = answers as string[];
+    // answers[0] is undefined (step 0 is the URL input, not a choice)
+    // filter it out so destructuring aligns: budget, productType, stage, goal
+    const [budget, productType, stage, goal] = (answers as string[]).filter(
+      (a) => a !== undefined && a !== null
+    );
 
     const userPrompt = `Product URL: ${url}
 
