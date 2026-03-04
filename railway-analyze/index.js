@@ -5,7 +5,12 @@ const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // allow requests from Vercel frontend
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}));
+app.options("*", cors()); // handle preflight requests
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 

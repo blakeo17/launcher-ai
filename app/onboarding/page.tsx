@@ -107,6 +107,7 @@ export default function Onboarding() {
         const analyzeUrl = process.env.NEXT_PUBLIC_ANALYZE_URL
           ? `${process.env.NEXT_PUBLIC_ANALYZE_URL}/analyze`
           : "/api/analyze";
+        console.log("[analyze] calling:", analyzeUrl);
         const res = await fetch(analyzeUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -119,7 +120,9 @@ export default function Onboarding() {
         router.push(`/preview/${data.id}`);
       } catch (err) {
         setAnalyzing(false);
-        setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        const msg = err instanceof Error ? err.message : String(err);
+        console.error("[analyze] error:", msg);
+        setError(msg);
       }
     }
   }
