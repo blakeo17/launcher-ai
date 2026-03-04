@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -45,13 +45,39 @@ function generateSessionId() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
+const ANALYZE_STEPS = [
+  "Scanning your landing page",
+  "Analyzing positioning & messaging",
+  "Identifying growth channels",
+  "Building your execution plan",
+  "Constructing your dashboard",
+  "Finalizing your launch strategy",
+];
+
 export default function Onboarding() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [url, setUrl] = useState("");
   const [answers, setAnswers] = useState<string[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  const [analyzeStep, setAnalyzeStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!analyzing) return;
+    setAnalyzeStep(0);
+    let current = 0;
+    const interval = setInterval(() => {
+      current++;
+      if (current < ANALYZE_STEPS.length - 1) {
+        setAnalyzeStep(current);
+      } else {
+        setAnalyzeStep(ANALYZE_STEPS.length - 1);
+        clearInterval(interval);
+      }
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [analyzing]);
 
   const current = steps[step];
   const progress = ((step + 1) / steps.length) * 100;
@@ -109,11 +135,58 @@ export default function Onboarding() {
   }
 
   if (analyzing) {
+    const progress = Math.min(95, Math.round(((analyzeStep + 1) / ANALYZE_STEPS.length) * 100));
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center gap-6">
-        <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
-        <p className="text-xl font-semibold">Analyzing your product…</p>
-        <p className="text-sm text-gray-400">Building your personalized launch plan</p>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
+        <div className="w-full max-w-sm flex flex-col gap-8">
+
+          {/* Header */}
+          <div className="flex flex-col gap-1">
+            <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">LaunchAI</p>
+            <h2 className="text-2xl font-black tracking-tight">Building your launch plan</h2>
+          </div>
+
+          {/* Progress bar */}
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-center">
+              <p className="text-sm text-gray-500">{ANALYZE_STEPS[analyzeStep]}</p>
+              <p className="text-sm font-semibold tabular-nums">{progress}%</p>
+            </div>
+            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-black rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Step list */}
+          <div className="flex flex-col gap-3">
+            {ANALYZE_STEPS.map((s, i) => {
+              const done = i < analyzeStep;
+              const active = i === analyzeStep;
+              return (
+                <div key={s} className="flex items-center gap-3">
+                  <div className="shrink-0 w-5 h-5 flex items-center justify-center">
+                    {done ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5">
+                        <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    ) : active ? (
+                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                    )}
+                  </div>
+                  <p className={`text-sm transition-colors ${done ? "text-black font-medium" : active ? "text-black font-semibold" : "text-gray-300"}`}>
+                    {s}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
       </div>
     );
   }
