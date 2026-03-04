@@ -106,9 +106,7 @@ export default function Onboarding() {
         const sessionId = generateSessionId();
         const analyzeUrl = process.env.NEXT_PUBLIC_ANALYZE_URL
           ? `${process.env.NEXT_PUBLIC_ANALYZE_URL}/analyze`
-          : "/api/analyze";
-        console.log("[analyze] calling:", analyzeUrl);
-        setError(`Calling: ${analyzeUrl}`);
+          : "https://launcher-ai-production.up.railway.app/analyze";
         const res = await fetch(analyzeUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
