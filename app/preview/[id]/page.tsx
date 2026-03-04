@@ -87,10 +87,16 @@ export default function PreviewPage() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg tracking-tight">LaunchAI</Link>
-        <span className="text-sm text-gray-400 hidden sm:block">Your launch plan is ready</span>
+        <button
+          onClick={handleUnlock}
+          disabled={unlocking}
+          className="bg-black text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {unlocking ? "Setting up…" : "Get Full Plan — $19"}
+        </button>
       </nav>
 
-      <div className="max-w-xl mx-auto px-6 py-12 flex flex-col gap-10">
+      <div className="max-w-xl mx-auto px-6 py-12 flex flex-col gap-8">
 
         {/* Header — personalized, tight */}
         <div className="flex flex-col gap-3">
@@ -102,6 +108,14 @@ export default function PreviewPage() {
             Your {plan.productName} launch plan is ready.
           </h1>
           <p className="text-gray-500 text-sm leading-relaxed">{plan.tagline}</p>
+          <button
+            onClick={handleUnlock}
+            disabled={unlocking}
+            className="mt-1 w-full bg-black text-white py-3.5 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {unlocking ? "Setting up…" : `Unlock My Full ${plan.productName} Plan — $19`}
+          </button>
+          <p className="text-xs text-gray-400 text-center">One-time payment · Instant access · No subscription</p>
         </div>
 
         {/* Top Issues */}
@@ -149,7 +163,7 @@ export default function PreviewPage() {
         {/* Paywall */}
         <div className="relative">
           {/* Blurred teaser */}
-          <div className="pointer-events-none select-none blur-sm opacity-30 flex flex-col gap-2 mb-[-80px]">
+          <div className="pointer-events-none select-none blur-sm opacity-30 flex flex-col gap-2 mb-[-120px]">
             {[
               "Your #1 positioning upgrade (with exact copy rewrite)",
               "The 3 channels most likely to get you paying users this week",
