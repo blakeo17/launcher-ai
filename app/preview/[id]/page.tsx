@@ -45,7 +45,13 @@ export default function PreviewPage() {
     setUnlocking(true);
     const { data } = await supabase.auth.getSession();
     if (data.session?.user) {
-      // Already signed in — go straight to Stripe checkout
+      // Already signed in — associate user with plan before going to Stripe
+      // so it shows up in My Projects once payment completes
+      await supabase
+        .from("launch_plans")
+        .update({ user_id: data.session.user.id })
+        .eq("id", id);
+
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
