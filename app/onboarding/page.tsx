@@ -108,6 +108,7 @@ export default function Onboarding() {
           ? `${process.env.NEXT_PUBLIC_ANALYZE_URL}/analyze`
           : "/api/analyze";
         console.log("[analyze] calling:", analyzeUrl);
+        setError(`Calling: ${analyzeUrl}`);
         const res = await fetch(analyzeUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
