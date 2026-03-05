@@ -30,7 +30,7 @@ export default function ExecutionPlanTab({ data }: { data: ExecutionPlanData }) 
       </div>
 
       {/* Primary Focus — dark premium card */}
-      <div className="bg-gray-900 text-white rounded-2xl p-7 flex flex-col gap-5">
+      <div className="bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-2xl p-7 flex flex-col gap-5">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center shrink-0">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
