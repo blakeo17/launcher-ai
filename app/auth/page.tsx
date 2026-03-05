@@ -30,6 +30,10 @@ function AuthContent() {
 
   async function handleGoogle() {
     setLoading(true);
+    // Store planId in a cookie as fallback in case OAuth strips query params
+    if (planId) {
+      document.cookie = `launcher_plan_id=${planId}; path=/; SameSite=Lax; max-age=600`;
+    }
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

@@ -5,10 +5,11 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const planId = searchParams.get("plan_id");
+
+  const cookieStore = await cookies();
+  const planId = searchParams.get("plan_id") || cookieStore.get("launcher_plan_id")?.value || null;
 
   if (code) {
-    const cookieStore = await cookies();
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -36,7 +37,10 @@ export async function GET(request: NextRequest) {
           .update({ user_id: data.user.id })
           .eq("id", planId);
 
-        return NextResponse.redirect(`${origin}/checkout/${planId}`);
+        const response = NextResponse.redirect(`${origin}/checkout/${planId}`);
+        // Clear the fallback cookie
+        response.cookies.set("launcher_plan_id", "", { path: "/", maxAge: 0 });
+        return response;
       }
 
       // No plan — just go home
