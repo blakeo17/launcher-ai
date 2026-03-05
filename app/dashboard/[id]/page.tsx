@@ -7,13 +7,87 @@ import Link from "next/link";
 import PositioningTab from "../PositioningTab";
 import RevenueChannelsTab from "../RevenueChannelsTab";
 import ExecutionPlanTab from "../ExecutionPlanTab";
-import ToolsStackTab from "../ToolsStackTab";
 import SettingsPanel from "../SettingsPanel";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
+const BUILD_STEPS = [
+  "Analyzing your positioning & messaging",
+  "Identifying your best revenue channels",
+  "Building your 4-week execution plan",
+  "Putting it all together",
+];
+
+function BuildingDashboard({ onError }: { onError: boolean }) {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    let current = 0;
+    const interval = setInterval(() => {
+      current++;
+      if (current < BUILD_STEPS.length) {
+        setStep(current);
+      } else {
+        clearInterval(interval);
+      }
+    }, 18000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (onError) {
+    return (
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <p className="text-base font-semibold">Something went wrong building your dashboard.</p>
+        <p className="text-sm text-gray-400">Your payment was successful. Refresh the page to try again.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-2 bg-black text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
+      <div className="w-full max-w-sm flex flex-col gap-8">
+        <div className="flex flex-col gap-1">
+          <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">LaunchAI</p>
+          <h2 className="text-2xl font-black tracking-tight">Building your custom dashboard</h2>
+          <p className="text-sm text-gray-400 mt-1">This takes about 30–60 seconds — crafted specifically for your product.</p>
+        </div>
+        <div className="flex flex-col gap-3">
+          {BUILD_STEPS.map((s, i) => {
+            const done = i < step;
+            const active = i === step;
+            return (
+              <div key={s} className="flex items-center gap-3">
+                <div className="shrink-0 w-5 h-5 flex items-center justify-center">
+                  {done ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5">
+                      <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ) : active ? (
+                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                  )}
+                </div>
+                <p className={`text-sm transition-colors ${done ? "text-black font-medium" : active ? "text-black font-semibold" : "text-gray-300"}`}>
+                  {s}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const navItems = [
   {
@@ -58,14 +132,6 @@ const navItems = [
       </svg>
     ),
   },
-  {
-    label: "Tools Stack",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,12 +145,14 @@ export default function DashboardPage() {
   const [plan, setPlan] = useState<Plan | null>(null);
   const [productUrl, setProductUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [buildingPlan, setBuildingPlan] = useState(false);
+  const [buildError, setBuildError] = useState(false);
   const [activeNav, setActiveNav] = useState("Overview");
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 15; // poll up to ~15s after payment
+    const maxAttempts = 15;
 
     async function load() {
       const { data, error } = await supabase
@@ -99,7 +167,6 @@ export default function DashboardPage() {
       }
 
       if (!data.unlocked) {
-        // If the user just paid, webhook may still be in flight — poll
         if (justPaid && attempts < maxAttempts) {
           attempts++;
           setTimeout(load, 1000);
@@ -109,12 +176,58 @@ export default function DashboardPage() {
         return;
       }
 
-      setPlan(data.plan as Plan);
+      // Unlocked — check if full plan exists yet
+      const planData = data.plan as Plan;
+      if (!planData?.overview) {
+        // Needs full generation
+        setLoading(false);
+        setBuildingPlan(true);
+        return;
+      }
+
+      setPlan(planData);
       setProductUrl(data.url ?? "");
       setLoading(false);
     }
     load();
   }, [id, router, justPaid]);
+
+  useEffect(() => {
+    if (!buildingPlan) return;
+
+    async function generate() {
+      try {
+        const analyzeUrl = process.env.NEXT_PUBLIC_ANALYZE_URL
+          ? `${process.env.NEXT_PUBLIC_ANALYZE_URL}/analyze-full`
+          : "https://launcher-ai-production.up.railway.app/analyze-full";
+
+        const res = await fetch(analyzeUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+
+        if (!res.ok) throw new Error("Generation failed");
+
+        const { data } = await supabase
+          .from("launch_plans")
+          .select("plan, url")
+          .eq("id", id)
+          .single();
+
+        if (data?.plan) {
+          setPlan(data.plan as Plan);
+          setProductUrl(data.url ?? "");
+        }
+      } catch {
+        setBuildError(true);
+      } finally {
+        setBuildingPlan(false);
+      }
+    }
+
+    generate();
+  }, [buildingPlan, id]);
 
   if (loading) {
     return (
@@ -125,6 +238,10 @@ export default function DashboardPage() {
         </p>
       </div>
     );
+  }
+
+  if (buildingPlan) {
+    return <BuildingDashboard onError={buildError} />;
   }
 
   if (!plan) {
@@ -199,7 +316,6 @@ export default function DashboardPage() {
           {!showSettings && activeNav === "Positioning" && <PositioningTab data={plan.positioning} />}
           {!showSettings && activeNav === "Revenue Channels" && <RevenueChannelsTab data={plan.revenueChannels} />}
           {!showSettings && activeNav === "Execution Plan" && <ExecutionPlanTab data={plan.executionPlan} />}
-          {!showSettings && activeNav === "Tools Stack" && <ToolsStackTab data={plan.toolsStack} />}
 
           {/* Overview */}
           <div className={`max-w-5xl mx-auto flex flex-col gap-5 ${showSettings || activeNav !== "Overview" ? "hidden" : ""}`}>
@@ -239,22 +355,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Row 2: Positioning Upgrade */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-5">
-              <p className="font-semibold text-base">Positioning Upgrade</p>
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-2">Current Headline</p>
-                  <p className="text-sm text-gray-500">&quot;{o.positioningUpgrade.current}&quot;</p>
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-2">Improved Headline</p>
-                  <p className="text-sm font-semibold">&quot;{o.positioningUpgrade.improved}&quot;</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Row 3: Ranked Channels + Immediate Actions */}
+            {/* Row 2: Ranked Channels + Immediate Actions */}
             <div className="grid grid-cols-2 gap-5">
               {/* Ranked Channels */}
               <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-5">
@@ -285,37 +386,6 @@ export default function DashboardPage() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-
-            {/* Row 4: Recommended Stack */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-5">
-              <div>
-                <p className="font-semibold text-base mb-1">Recommended Stack For You</p>
-                <p className="text-sm text-gray-400">Based on your ICP and primary channel.</p>
-              </div>
-              <div className="flex flex-col">
-                {o.recommendedStack.map((tool: { tool: string; purpose: string; url?: string }, i: number) => (
-                  <div key={tool.tool}>
-                    {i > 0 && <div className="border-t border-gray-100" />}
-                    <div className="flex items-center justify-between py-4">
-                      <div>
-                        <p className="font-semibold text-sm mb-0.5">{tool.tool}</p>
-                        <p className="text-sm text-gray-500">{tool.purpose}</p>
-                      </div>
-                      {tool.url && (
-                        <a
-                          href={tool.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="border border-gray-200 rounded-lg px-4 py-1.5 text-sm text-gray-600 hover:border-gray-400 hover:text-black transition-colors shrink-0 ml-6"
-                        >
-                          Open
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 

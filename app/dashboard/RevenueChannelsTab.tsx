@@ -10,11 +10,6 @@ interface ChannelBreakdown {
 }
 
 interface RevenueChannelsData {
-  stats: {
-    channelConfidence: string;
-    revenuePredictability: string;
-    acquisitionCostRisk: string;
-  };
   channelTable: { channel: string; timeToFirstDollar: string; rationale: string }[];
   channelBreakdowns: ChannelBreakdown[];
   operatorRecommendation: string;
@@ -35,20 +30,6 @@ export default function RevenueChannelsTab({ data }: { data: RevenueChannelsData
         </p>
         <h2 className="text-3xl font-bold mb-2">Revenue Channels &amp; Execution Plan</h2>
         <p className="text-sm text-gray-500">Where your first revenue is most likely to come from.</p>
-      </div>
-
-      {/* Stats pills */}
-      <div className="flex gap-3 flex-wrap">
-        {[
-          { label: "Primary Channel Confidence", value: data.stats.channelConfidence },
-          { label: "Revenue Predictability", value: data.stats.revenuePredictability },
-          { label: "Acquisition Cost Risk", value: data.stats.acquisitionCostRisk },
-        ].map((stat) => (
-          <div key={stat.label} className="border border-gray-200 rounded-full px-4 py-2 text-sm">
-            <span className="text-gray-500">{stat.label}: </span>
-            <span className="font-semibold">{stat.value}</span>
-          </div>
-        ))}
       </div>
 
       {/* Channel table */}

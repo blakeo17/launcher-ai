@@ -160,6 +160,19 @@ export default function PreviewPage() {
           </div>
         </div>
 
+        {/* Potential banner */}
+        <div className="bg-green-50 border border-green-100 rounded-2xl px-5 py-4 flex items-start gap-3">
+          <div className="mt-0.5 shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-semibold text-sm text-green-900 mb-0.5">{plan.productName} has real revenue potential.</p>
+            <p className="text-sm text-green-700">We found a clear path to your first paying users — your full plan shows you exactly how to get there.</p>
+          </div>
+        </div>
+
         {/* Paywall */}
         <div className="relative">
           {/* Blurred teaser */}
@@ -168,7 +181,7 @@ export default function PreviewPage() {
               "Your #1 positioning upgrade (with exact copy rewrite)",
               "The 3 channels most likely to get you paying users this week",
               "Week-by-week execution plan built for your stage",
-              "5-tool stack picked specifically for your product type",
+              "Full breakdown of each channel with content angles + cadence",
             ].map((item) => (
               <div key={item} className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-4">
                 <p className="text-sm text-gray-600">{item}</p>
@@ -200,8 +213,8 @@ export default function PreviewPage() {
               {[
                 "Exact positioning rewrite for your landing page",
                 "Top channels ranked by speed to first revenue",
+                "Full channel breakdown with content angles + cadence",
                 "Week-by-week execution plan for your stage",
-                "Custom 5-tool stack for your product type",
                 "Instant access — yours to keep forever",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2.5">

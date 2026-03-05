@@ -47,11 +47,8 @@ function generateSessionId() {
 
 const ANALYZE_STEPS = [
   "Scanning your landing page",
-  "Analyzing positioning & messaging",
-  "Identifying growth channels",
-  "Building your execution plan",
-  "Constructing your dashboard",
-  "Finalizing your launch strategy",
+  "Analyzing your product",
+  "Preparing your preview",
 ];
 
 export default function Onboarding() {
@@ -75,7 +72,7 @@ export default function Onboarding() {
         setAnalyzeStep(ANALYZE_STEPS.length - 1);
         clearInterval(interval);
       }
-    }, 3500);
+    }, 4000);
     return () => clearInterval(interval);
   }, [analyzing]);
 
