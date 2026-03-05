@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
 
 const faqs = [
@@ -26,10 +27,24 @@ const faqs = [
 const CYCLING_WORDS = ["launch plan", "growth strategy", "positioning upgrade", "revenue roadmap"];
 
 export default function Home() {
+  const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [wordIdx, setWordIdx] = useState(0);
   const [wordFading, setWordFading] = useState(false);
+
+  // If user just came back from OAuth and we have a pending plan, send them to checkout
+  useEffect(() => {
+    const pendingPlanId = sessionStorage.getItem("pending_plan_id");
+    if (!pendingPlanId) return;
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        sessionStorage.removeItem("pending_plan_id");
+        router.push(`/checkout/${pendingPlanId}`);
+      }
+    });
+  }, []);
 
   // Auth state
   useEffect(() => {

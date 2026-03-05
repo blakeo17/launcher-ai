@@ -58,6 +58,7 @@ export default function PreviewPage() {
       const { url } = await res.json();
       window.location.href = url;
     } else {
+      sessionStorage.setItem("pending_plan_id", id);
       router.push(`/auth?plan_id=${id}`);
     }
   }
