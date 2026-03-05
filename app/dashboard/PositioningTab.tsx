@@ -134,15 +134,15 @@ export default function PositioningTab({ data }: { data: PositioningData }) {
         <h3 className="text-lg font-bold mb-4">Key Messaging Angles</h3>
         <div className="flex flex-col gap-3">
           {data.messagingAngles.map((angle, i) => (
-            <div key={angle.angle} className={`rounded-xl overflow-hidden border ${i % 2 === 0 ? "border-blue-200" : "border-gray-200"}`}>
-              <div className={`px-5 py-3 flex items-center gap-2 ${i % 2 === 0 ? "bg-blue-500" : "bg-gray-800"}`}>
+            <div key={angle.angle} className="rounded-xl overflow-hidden border border-gray-200">
+              <div className="px-5 py-3 flex items-center gap-2 bg-gray-800">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
                   <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <p className="text-xs font-bold text-white uppercase tracking-widest">{angle.angle}</p>
               </div>
-              <div className={`px-5 py-4 ${i % 2 === 0 ? "bg-blue-50" : "bg-gray-50"}`}>
-                <p className={`text-sm font-semibold leading-snug ${i % 2 === 0 ? "text-blue-900" : "text-gray-800"}`}>
+              <div className="px-5 py-4 bg-gray-50">
+                <p className="text-sm font-semibold leading-snug text-gray-800">
                   &ldquo;{angle.copy}&rdquo;
                 </p>
               </div>

@@ -62,15 +62,24 @@ export default function SettingsPanel({ url, productName }: SettingsPanelProps) 
         </Link>
       </div>
 
-      {/* Billing */}
+      {/* Projects */}
       <div className="flex flex-col gap-4">
         <p className="text-[10px] font-semibold tracking-widest text-gray-400 uppercase">
-          Billing
+          Projects
         </p>
         <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-          <button className="w-full text-left px-5 py-3.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-            Manage Billing
-          </button>
+          <Link
+            href="/projects"
+            className="w-full text-left px-5 py-3.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            My Projects
+          </Link>
         </div>
       </div>
 

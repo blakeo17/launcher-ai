@@ -53,6 +53,8 @@ function BuildingDashboard({ onError }: { onError: boolean }) {
     );
   }
 
+  const progress = Math.min(95, Math.round(((step + 1) / BUILD_STEPS.length) * 100));
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm flex flex-col gap-8">
@@ -61,6 +63,21 @@ function BuildingDashboard({ onError }: { onError: boolean }) {
           <h2 className="text-2xl font-black tracking-tight">Building your custom dashboard</h2>
           <p className="text-sm text-gray-400 mt-1">This takes about 30–60 seconds — crafted specifically for your product.</p>
         </div>
+
+        {/* Progress bar */}
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-gray-500">{BUILD_STEPS[step]}</p>
+            <p className="text-sm font-semibold tabular-nums">{progress}%</p>
+          </div>
+          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-black rounded-full transition-all duration-700 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+
         <div className="flex flex-col gap-3">
           {BUILD_STEPS.map((s, i) => {
             const done = i < step;
@@ -299,16 +316,16 @@ export default function DashboardPage() {
           <span className="font-semibold text-sm md:text-base truncate">Launch plan for {plan.productName}</span>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => { setActiveNav("Overview"); setShowSettings(false); }}
+          <Link
+            href="/"
             className="text-gray-400 hover:text-black transition-colors"
-            aria-label="Overview"
+            aria-label="Home"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" strokeLinecap="round" strokeLinejoin="round" />
               <polyline points="9 22 9 12 15 12 15 22" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </button>
+          </Link>
           <button
             onClick={() => setShowSettings(!showSettings)}
             className={`transition-colors ${showSettings ? "text-black" : "text-gray-400 hover:text-black"}`}

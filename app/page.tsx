@@ -130,9 +130,9 @@ export default function Home() {
             For AI Builders &amp; Vibe Coders
           </p>
           <h1 className="animate-fade-in-up text-4xl md:text-6xl font-black leading-[1.1] max-w-2xl mb-6 md:mb-8" style={{ animationDelay: "100ms" }}>
-            You built the product. We build the launch.
+            You built the product We build the launch
           </h1>
-          <p className="animate-fade-in-up text-base md:text-lg text-gray-500 max-w-xl mb-10 md:mb-12" style={{ animationDelay: "200ms" }}>
+          <p className="animate-fade-in-up text-base md:text-lg text-gray-500 whitespace-nowrap mb-10 md:mb-12" style={{ animationDelay: "200ms" }}>
             Get a personalized{" "}
             <span
               className="inline-block text-center text-black font-semibold transition-all duration-300"
