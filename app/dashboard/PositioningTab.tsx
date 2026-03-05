@@ -61,16 +61,24 @@ export default function PositioningTab({ data }: { data: PositioningData }) {
         </div>
         <div className="divide-y divide-gray-100">
           {[
-            { label: "Primary User Type", value: data.icp.primaryUserType },
-            { label: "Core Pain Point", value: data.icp.corePainPoint },
-            { label: "Buying Trigger", value: data.icp.buyingTrigger },
-            { label: "Urgency Level", value: data.icp.urgencyLevel },
+            { label: "Primary User Type", value: data.icp.primaryUserType, badge: false },
+            { label: "Core Pain Point", value: data.icp.corePainPoint, badge: false },
+            { label: "Buying Trigger", value: data.icp.buyingTrigger, badge: false },
+            { label: "Urgency Level", value: data.icp.urgencyLevel, badge: true },
           ].map((row) => (
             <div key={row.label} className="px-6 py-4">
               <p className="text-[10px] font-semibold tracking-widest text-gray-400 uppercase mb-1.5">
                 {row.label}
               </p>
-              <p className="text-sm">{row.value}</p>
+              {row.badge ? (
+                <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-full border ${
+                  row.value === "High" ? "bg-red-50 text-red-700 border-red-200" :
+                  row.value === "Medium" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                  "bg-gray-100 text-gray-500 border-gray-200"
+                }`}>{row.value}</span>
+              ) : (
+                <p className="text-sm">{row.value}</p>
+              )}
             </div>
           ))}
         </div>

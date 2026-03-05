@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ChannelIcon from "./ChannelIcon";
 
 interface ChannelBreakdown {
   channel: string;
@@ -44,7 +45,7 @@ export default function RevenueChannelsTab({ data }: { data: RevenueChannelsData
             key={ch.channel}
             className={`grid grid-cols-3 ${i < data.channelTable.length - 1 ? "border-b border-gray-200" : ""}`}
           >
-            <div className="px-5 py-5 text-sm">{medals[i] ?? ""} {ch.channel}</div>
+            <div className="px-5 py-5 text-sm flex items-center gap-2.5">{medals[i] ?? ""} <ChannelIcon channel={ch.channel} size={20} /> {ch.channel}</div>
             <div className="px-5 py-5 text-sm text-gray-600 border-l border-gray-200">{ch.timeToFirstDollar}</div>
             <div className="px-5 py-5 text-sm text-gray-600 border-l border-gray-200">{ch.rationale}</div>
           </div>
@@ -63,7 +64,10 @@ export default function RevenueChannelsTab({ data }: { data: RevenueChannelsData
                   onClick={() => setOpenChannel(isOpen ? null : ch.channel)}
                   className="w-full flex items-center justify-between px-5 py-4 text-left"
                 >
-                  <span className="font-semibold text-sm">{ch.channel}</span>
+                  <span className="flex items-center gap-2.5 font-semibold text-sm">
+                    <ChannelIcon channel={ch.channel} size={20} />
+                    {ch.channel}
+                  </span>
                   <svg
                     width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" strokeWidth="2"

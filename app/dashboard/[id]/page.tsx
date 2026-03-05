@@ -8,6 +8,7 @@ import PositioningTab from "../PositioningTab";
 import RevenueChannelsTab from "../RevenueChannelsTab";
 import ExecutionPlanTab from "../ExecutionPlanTab";
 import SettingsPanel from "../SettingsPanel";
+import ChannelIcon from "../ChannelIcon";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -136,6 +137,36 @@ const navItems = [
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Plan = Record<string, any>;
+
+function potentialColor(p: string) {
+  if (p === "High") return "bg-emerald-50 text-emerald-700 border border-emerald-200";
+  if (p === "Medium") return "bg-amber-50 text-amber-700 border border-amber-200";
+  return "bg-gray-100 text-gray-500 border border-gray-200";
+}
+
+function priorityColor(p: string) {
+  if (p === "High") return "bg-red-50 text-red-700";
+  return "bg-gray-100 text-gray-600";
+}
+
+function ReadinessRing({ score }: { score: number }) {
+  const radius = 22;
+  const circ = 2 * Math.PI * radius;
+  const fill = (score / 100) * circ;
+  const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+  return (
+    <div className="relative w-14 h-14 shrink-0">
+      <svg width="56" height="56" viewBox="0 0 56 56" className="-rotate-90">
+        <circle cx="28" cy="28" r={radius} fill="none" stroke="#f3f4f6" strokeWidth="4" />
+        <circle cx="28" cy="28" r={radius} fill="none" stroke={color} strokeWidth="4"
+          strokeDasharray={`${fill} ${circ}`} strokeLinecap="round" />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-xs font-bold" style={{ color }}>{score}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function DashboardPage() {
   const { id } = useParams<{ id: string }>();
@@ -325,31 +356,31 @@ export default function DashboardPage() {
               {/* Launch Snapshot */}
               <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4">
                 <p className="font-semibold text-base">Launch Snapshot</p>
-                <div>
-                  <p className="font-bold text-sm leading-snug mb-2">{o.launchSnapshot.biggestWin}</p>
-                  <p className="text-sm text-gray-500">{o.launchSnapshot.criticalGap}</p>
+                <div className="flex items-start gap-4">
+                  <ReadinessRing score={Number(o.launchSnapshot.readinessScore)} />
+                  <div>
+                    <p className="font-bold text-sm leading-snug mb-1.5">{o.launchSnapshot.biggestWin}</p>
+                    <p className="text-sm text-gray-500">{o.launchSnapshot.criticalGap}</p>
+                  </div>
                 </div>
-                <div className="flex gap-2 flex-wrap">
-                  <div className="border border-gray-200 rounded-lg px-3 py-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-0.5">Readiness</p>
-                    <p className="text-sm font-medium">{o.launchSnapshot.readinessScore}/100</p>
-                  </div>
-                  <div className="border border-gray-200 rounded-lg px-3 py-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-0.5">Time to First User</p>
-                    <p className="text-sm font-medium">{o.launchSnapshot.timeToFirstUser}</p>
-                  </div>
+                <div className="border border-gray-200 rounded-lg px-3 py-2 w-fit">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-0.5">Time to First User</p>
+                  <p className="text-sm font-medium">{o.launchSnapshot.timeToFirstUser}</p>
                 </div>
               </div>
 
               {/* #1 Focus This Week */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-l-violet-500">
                 <p className="font-semibold text-base">Your #1 Focus This Week</p>
                 <div>
                   <p className="font-bold text-sm leading-snug mb-2">{o.topFocus.title}</p>
                   <p className="text-sm text-gray-500">{o.topFocus.description}</p>
                 </div>
                 <div className="flex gap-2">
-                  <span className="border border-gray-200 rounded-md px-3 py-1 text-xs text-gray-600">{o.topFocus.channel}</span>
+                  <span className="bg-violet-50 border border-violet-200 text-violet-700 rounded-md px-3 py-1 text-xs font-medium flex items-center gap-1.5">
+                    <ChannelIcon channel={o.topFocus.channel} size={14} />
+                    {o.topFocus.channel}
+                  </span>
                   <span className="border border-gray-200 rounded-md px-3 py-1 text-xs text-gray-600">{o.topFocus.timeframe}</span>
                 </div>
               </div>
@@ -364,8 +395,12 @@ export default function DashboardPage() {
                   {o.rankedChannels.map((ch: { name: string; potential: string; reason: string }, i: number) => (
                     <div key={ch.name}>
                       {i > 0 && <div className="border-t border-gray-100 mb-4" />}
-                      <p className="font-semibold text-sm mb-1">#{i + 1} {ch.name} <span className="text-gray-400 font-normal">· {ch.potential}</span></p>
-                      <p className="text-sm text-gray-500">{ch.reason}</p>
+                      <div className="flex items-center gap-2 mb-1">
+                        <ChannelIcon channel={ch.name} size={20} />
+                        <p className="font-semibold text-sm">#{i + 1} {ch.name}</p>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${potentialColor(ch.potential)}`}>{ch.potential}</span>
+                      </div>
+                      <p className="text-sm text-gray-500 pl-7">{ch.reason}</p>
                     </div>
                   ))}
                 </div>
@@ -380,7 +415,7 @@ export default function DashboardPage() {
                       {i > 0 && <div className="border-t border-gray-100 mb-4" />}
                       <p className="text-sm mb-2">{action.action}</p>
                       <div className="flex gap-2">
-                        <span className="bg-gray-100 rounded px-2 py-0.5 text-xs text-gray-600">{action.priority}</span>
+                        <span className={`rounded px-2 py-0.5 text-xs font-medium ${priorityColor(action.priority)}`}>{action.priority}</span>
                         <span className="bg-gray-100 rounded px-2 py-0.5 text-xs text-gray-600">{action.time}</span>
                       </div>
                     </div>
