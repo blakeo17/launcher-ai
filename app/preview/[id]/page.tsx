@@ -86,7 +86,7 @@ export default function PreviewPage() {
     <div className="min-h-screen bg-white text-black font-sans">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg tracking-tight">LaunchAI</Link>
+        <Link href="/" className="font-bold text-lg tracking-tight">Launcher AI</Link>
         <button
           onClick={handleUnlock}
           disabled={unlocking}

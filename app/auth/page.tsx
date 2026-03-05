@@ -82,7 +82,7 @@ function AuthContent() {
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       <nav className="px-8 py-4 border-b border-gray-100 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg tracking-tight">LaunchAI</Link>
+        <Link href="/" className="font-bold text-lg tracking-tight">Launcher AI</Link>
       </nav>
 
       <div className="flex-1 flex items-center justify-center px-6 py-16">
@@ -97,7 +97,7 @@ function AuthContent() {
               {planId
                 ? "Your launch plan is ready. Sign up to access the full dashboard."
                 : mode === "signup"
-                ? "Join LaunchAI to save your launch plans."
+                ? "Join Launcher AI to save your launch plans."
                 : "Sign in to access your dashboard."}
             </p>
           </div>

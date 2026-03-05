@@ -6,7 +6,7 @@ export default function Terms() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg tracking-tight">
-          LaunchAI
+          Launcher AI
         </Link>
         <Link
           href="/onboarding"
@@ -23,7 +23,7 @@ export default function Terms() {
           <h1 className="text-4xl font-black tracking-tight">Terms of Service</h1>
           <p className="text-sm text-gray-400">Last updated: March 2026</p>
           <p className="text-gray-600 text-base leading-relaxed mt-2">
-            Welcome to LaunchAI. By accessing or using our website and services, you agree to the following terms.
+            Welcome to Launcher AI. By accessing or using our website and services, you agree to the following terms.
           </p>
         </div>
 
@@ -32,8 +32,8 @@ export default function Terms() {
           {/* 1 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">1. Overview</h2>
-            <p>LaunchAI provides tools that analyze product pages and generate launch strategy suggestions for founders and builders.</p>
-            <p>By accessing or using LaunchAI, you agree to comply with these Terms of Service and all applicable laws.</p>
+            <p>Launcher AI provides tools that analyze product pages and generate launch strategy suggestions for founders and builders.</p>
+            <p>By accessing or using Launcher AI, you agree to comply with these Terms of Service and all applicable laws.</p>
           </section>
 
           <div className="h-px bg-gray-100" />
@@ -41,7 +41,7 @@ export default function Terms() {
           {/* 2 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">2. Use of the Service</h2>
-            <p>You agree to use LaunchAI only for lawful purposes.</p>
+            <p>You agree to use Launcher AI only for lawful purposes.</p>
             <p>You may not:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
@@ -64,7 +64,7 @@ export default function Terms() {
           {/* 3 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">3. Generated Insights</h2>
-            <p>LaunchAI generates recommendations, suggestions, and analysis based on the information you provide.</p>
+            <p>Launcher AI generates recommendations, suggestions, and analysis based on the information you provide.</p>
             <p>These outputs:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
@@ -86,7 +86,7 @@ export default function Terms() {
           {/* 4 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">4. Payments</h2>
-            <p>Some features of LaunchAI may require payment.</p>
+            <p>Some features of Launcher AI may require payment.</p>
             <p>If you purchase access:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
@@ -108,7 +108,7 @@ export default function Terms() {
           {/* 5 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">5. Intellectual Property</h2>
-            <p>All content, software, branding, and design associated with LaunchAI are the property of LaunchAI and Newbury AI.</p>
+            <p>All content, software, branding, and design associated with Launcher AI are the property of Launcher AI and Newbury AI.</p>
             <p>You may not copy, redistribute, resell, or reverse engineer any part of the service without permission.</p>
           </section>
 
@@ -117,7 +117,7 @@ export default function Terms() {
           {/* 6 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">6. Service Availability</h2>
-            <p>We aim to keep LaunchAI available and reliable, but we do not guarantee uninterrupted access. Features may be updated, modified, or removed at any time.</p>
+            <p>We aim to keep Launcher AI available and reliable, but we do not guarantee uninterrupted access. Features may be updated, modified, or removed at any time.</p>
           </section>
 
           <div className="h-px bg-gray-100" />
@@ -125,8 +125,8 @@ export default function Terms() {
           {/* 7 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">7. Limitation of Liability</h2>
-            <p>LaunchAI is provided &quot;as is&quot;.</p>
-            <p>To the fullest extent permitted by law, LaunchAI and Newbury AI are not liable for:</p>
+            <p>Launcher AI is provided &quot;as is&quot;.</p>
+            <p>To the fullest extent permitted by law, Launcher AI and Newbury AI are not liable for:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
                 "Business losses",
@@ -147,7 +147,7 @@ export default function Terms() {
           {/* 8 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">8. Changes to These Terms</h2>
-            <p>We may update these Terms from time to time. Continued use of LaunchAI after changes means you accept the updated terms.</p>
+            <p>We may update these Terms from time to time. Continued use of Launcher AI after changes means you accept the updated terms.</p>
           </section>
 
           <div className="h-px bg-gray-100" />

@@ -141,7 +141,7 @@ export default function Onboarding() {
 
           {/* Header */}
           <div className="flex flex-col gap-1">
-            <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">LaunchAI</p>
+            <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">Launcher AI</p>
             <h2 className="text-2xl font-black tracking-tight">Building your launch plan</h2>
           </div>
 
@@ -212,7 +212,7 @@ export default function Onboarding() {
               </svg>
             </Link>
           )}
-          <span className="font-bold text-lg tracking-tight">LaunchAI</span>
+          <span className="font-bold text-lg tracking-tight">Launcher AI</span>
         </div>
         <span className="text-sm text-gray-400">
           {step + 1} of {steps.length}

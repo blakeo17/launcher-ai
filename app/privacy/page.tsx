@@ -6,7 +6,7 @@ export default function Privacy() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg tracking-tight">
-          LaunchAI
+          Launcher AI
         </Link>
         <Link
           href="/onboarding"
@@ -23,7 +23,7 @@ export default function Privacy() {
           <h1 className="text-4xl font-black tracking-tight">Privacy Policy</h1>
           <p className="text-sm text-gray-400">Last updated: March 2026</p>
           <p className="text-gray-600 text-base leading-relaxed mt-2">
-            This Privacy Policy explains how LaunchAI collects, uses, and protects information when you use our service.
+            This Privacy Policy explains how Launcher AI collects, uses, and protects information when you use our service.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function Privacy() {
           {/* 1 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">1. Information We Collect</h2>
-            <p>When you use LaunchAI, we may collect:</p>
+            <p>When you use Launcher AI, we may collect:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
                 "Product links you submit",
@@ -77,7 +77,7 @@ export default function Privacy() {
           {/* 3 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">3. Third-Party Services</h2>
-            <p>LaunchAI relies on trusted third-party services to operate the platform, including services for:</p>
+            <p>Launcher AI relies on trusted third-party services to operate the platform, including services for:</p>
             <ul className="flex flex-col gap-2 pl-4">
               {[
                 "Hosting and infrastructure",
@@ -115,7 +115,7 @@ export default function Privacy() {
           {/* 6 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">6. Children&apos;s Privacy</h2>
-            <p>LaunchAI is not intended for children under the age of 13, and we do not knowingly collect personal information from children.</p>
+            <p>Launcher AI is not intended for children under the age of 13, and we do not knowingly collect personal information from children.</p>
           </section>
 
           <div className="h-px bg-gray-100" />
@@ -123,7 +123,7 @@ export default function Privacy() {
           {/* 7 */}
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-bold text-black">7. Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. Continued use of LaunchAI after changes means you accept the updated policy.</p>
+            <p>We may update this Privacy Policy from time to time. Continued use of Launcher AI after changes means you accept the updated policy.</p>
           </section>
 
           <div className="h-px bg-gray-100" />

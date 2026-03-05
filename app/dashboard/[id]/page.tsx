@@ -59,7 +59,7 @@ function BuildingDashboard({ onError }: { onError: boolean }) {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm flex flex-col gap-8">
         <div className="flex flex-col gap-1">
-          <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">LaunchAI</p>
+          <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">Launcher AI</p>
           <h2 className="text-2xl font-black tracking-tight">Building your custom dashboard</h2>
           <p className="text-sm text-gray-400 mt-1">This takes about 30–60 seconds — crafted specifically for your product.</p>
         </div>

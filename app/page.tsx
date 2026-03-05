@@ -75,7 +75,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black font-sans">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex items-center justify-between">
-        <span className="font-bold text-lg tracking-tight">LaunchAI</span>
+        <span className="font-bold text-lg tracking-tight">Launcher AI</span>
         <div className="hidden md:flex items-center gap-8">
           <button
             onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth", block: "center" })}
@@ -337,7 +337,7 @@ export default function Home() {
       <section className="px-6 py-16 md:py-20">
         <div className="fade-up text-center mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">Your Personalized Launch Plan Includes</h2>
-          <p className="text-sm text-gray-400">Based on your product and answers, LaunchAI generates a custom launch strategy.</p>
+          <p className="text-sm text-gray-400">Based on your product and answers, Launcher AI generates a custom launch strategy.</p>
         </div>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
@@ -388,7 +388,7 @@ export default function Home() {
         <div className="relative max-w-3xl mx-auto">
           <div className="fade-up text-center mb-10 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-2">Built around your product</h2>
-            <p className="text-sm text-gray-400">LaunchAI analyzes your product and generates a strategy tailored to it.</p>
+            <p className="text-sm text-gray-400">Launcher AI analyzes your product and generates a strategy tailored to it.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -452,10 +452,10 @@ export default function Home() {
       <footer className="bg-white border-t border-gray-100 px-6 md:px-8 py-12 md:py-16">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div className="flex flex-col gap-4">
-            <p className="font-bold text-lg tracking-tight">LaunchAI</p>
+            <p className="font-bold text-lg tracking-tight">Launcher AI</p>
             <p className="text-sm text-gray-400 leading-relaxed">Launch strategy for founders and builders.</p>
             <div className="flex flex-col gap-1 mt-2">
-              <p className="text-xs text-gray-400">© 2026 LaunchAI</p>
+              <p className="text-xs text-gray-400">© 2026 Launcher AI</p>
               <p className="text-xs text-gray-400">Built by Newbury AI</p>
             </div>
           </div>

@@ -17,7 +17,7 @@ export default function Contact() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg tracking-tight">
-          LaunchAI
+          Launcher AI
         </Link>
         <Link
           href="/onboarding"

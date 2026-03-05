@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "LaunchAI — Full Launch Dashboard",
+              name: "Launcher AI — Full Launch Dashboard",
               description:
                 "Complete launch plan: positioning strategy, revenue channels, week-by-week execution plan, and custom tools stack.",
             },

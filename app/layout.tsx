@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LaunchAI — You built the product. We build the launch.",
+  title: "Launcher AI — You built the product. We build the launch.",
   description:
     "Get a personalized launch briefing built specifically for your app in under 5 minutes.",
 };
