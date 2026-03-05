@@ -173,7 +173,7 @@ export default function Home() {
       {/* Preview */}
       <section id="preview" className="bg-gray-50 px-6 py-20">
         <div className="fade-up">
-          <h2 className="text-3xl font-bold text-center mb-10">Your Launch Command Center (Preview)</h2>
+          <h2 className="text-3xl font-bold text-center mb-10">Here&apos;s what&apos;s inside</h2>
         </div>
 
         {/* Dashboard mockup */}
