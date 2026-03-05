@@ -12,8 +12,8 @@ interface ExecutionPlanData {
 }
 
 const WEEK_STYLES = [
-  { badge: "bg-indigo-100 text-indigo-700", border: "border-l-indigo-500", num: "bg-indigo-100 text-indigo-700" },
-  { badge: "bg-violet-100 text-violet-700", border: "border-l-violet-500", num: "bg-violet-100 text-violet-700" },
+  { badge: "bg-blue-100 text-blue-700", border: "border-l-blue-500", num: "bg-blue-100 text-blue-700" },
+  { badge: "bg-sky-100 text-sky-700", border: "border-l-sky-500", num: "bg-sky-100 text-sky-700" },
   { badge: "bg-emerald-100 text-emerald-700", border: "border-l-emerald-500", num: "bg-emerald-100 text-emerald-700" },
   { badge: "bg-amber-100 text-amber-700", border: "border-l-amber-500", num: "bg-amber-100 text-amber-700" },
 ];
@@ -30,22 +30,22 @@ export default function ExecutionPlanTab({ data }: { data: ExecutionPlanData }) 
       </div>
 
       {/* Primary Focus — dark premium card */}
-      <div className="bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-2xl p-7 flex flex-col gap-5">
+      <div className="bg-gray-100 border border-gray-200 rounded-2xl p-7 flex flex-col gap-5">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center shrink-0">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <div className="w-7 h-7 bg-gray-200 rounded-lg flex items-center justify-center shrink-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <p className="text-xs font-semibold tracking-widest uppercase text-white/40">Primary Focus</p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-gray-400">Primary Focus</p>
         </div>
         <div>
-          <p className="text-2xl font-black mb-1">{data.primaryFocus.channels}</p>
-          <p className="text-sm text-white/40 italic">&ldquo;{data.primaryFocus.tagline}&rdquo;</p>
+          <p className="text-2xl font-black text-gray-900 mb-1">{data.primaryFocus.channels}</p>
+          <p className="text-sm text-gray-400 italic">&ldquo;{data.primaryFocus.tagline}&rdquo;</p>
         </div>
-        <div className="flex items-center gap-2 pt-1 border-t border-white/10">
-          <span className="text-xs text-white/40 font-medium">30-day goal</span>
-          <span className="bg-white/10 text-white text-sm font-bold px-3 py-1 rounded-full">
+        <div className="flex items-center gap-2 pt-1 border-t border-gray-200">
+          <span className="text-xs text-gray-400 font-medium">30-day goal</span>
+          <span className="bg-white border border-gray-200 text-gray-800 text-sm font-bold px-3 py-1 rounded-full">
             {data.primaryFocus.revenueGoal}
           </span>
         </div>

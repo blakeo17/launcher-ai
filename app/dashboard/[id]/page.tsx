@@ -370,14 +370,14 @@ export default function DashboardPage() {
               </div>
 
               {/* #1 Focus This Week */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-l-violet-500">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-l-blue-500">
                 <p className="font-semibold text-base">Your #1 Focus This Week</p>
                 <div>
                   <p className="font-bold text-sm leading-snug mb-2">{o.topFocus.title}</p>
                   <p className="text-sm text-gray-500">{o.topFocus.description}</p>
                 </div>
                 <div className="flex gap-2">
-                  <span className="bg-violet-50 border border-violet-200 text-violet-700 rounded-md px-3 py-1 text-xs font-medium flex items-center gap-1.5">
+                  <span className="bg-blue-50 border border-blue-200 text-blue-700 rounded-md px-3 py-1 text-xs font-medium flex items-center gap-1.5">
                     <ChannelIcon channel={o.topFocus.channel} size={14} />
                     {o.topFocus.channel}
                   </span>
