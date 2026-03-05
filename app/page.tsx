@@ -140,7 +140,7 @@ export default function Home() {
             >
               {CYCLING_WORDS[wordIdx]}
             </span>{" "}
-            built specifically for your app.
+            built specifically for your app
           </p>
           <Link
             href="/onboarding"
