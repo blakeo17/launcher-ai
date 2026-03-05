@@ -289,14 +289,14 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col h-screen bg-white font-sans">
       {/* Top header */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gray-900 rounded-lg flex items-center justify-center">
+      <header className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-gray-100 shrink-0 min-w-0">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-9 h-9 bg-gray-900 rounded-lg flex items-center justify-center shrink-0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <span className="font-semibold text-base">Launch plan for {plan.productName}</span>
+          <span className="font-semibold text-sm md:text-base truncate">Launch plan for {plan.productName}</span>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -322,9 +322,25 @@ export default function DashboardPage() {
         </div>
       </header>
 
+      {/* Bottom tab bar — mobile only */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex z-50">
+        {navItems.map((item) => (
+          <button
+            key={item.label}
+            onClick={() => { setActiveNav(item.label); setShowSettings(false); }}
+            className={`flex-1 flex flex-col items-center gap-1 py-3 transition-colors ${
+              activeNav === item.label && !showSettings ? "text-black" : "text-gray-400"
+            }`}
+          >
+            {item.icon}
+            <span className="text-[9px] font-medium">{item.label === "Revenue Channels" ? "Revenue" : item.label}</span>
+          </button>
+        ))}
+      </nav>
+
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="w-52 border-r border-gray-100 flex flex-col py-3 shrink-0">
+        {/* Sidebar — desktop only */}
+        <aside className="hidden md:flex w-52 border-r border-gray-100 flex-col py-3 shrink-0">
           {navItems.map((item) => (
             <button
               key={item.label}
@@ -342,17 +358,18 @@ export default function DashboardPage() {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-8">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-8 pb-24 md:pb-8">
           {showSettings && <SettingsPanel url={productUrl} productName={plan.productName} />}
           {!showSettings && activeNav === "Positioning" && <PositioningTab data={plan.positioning} />}
           {!showSettings && activeNav === "Revenue Channels" && <RevenueChannelsTab data={plan.revenueChannels} />}
           {!showSettings && activeNav === "Execution Plan" && <ExecutionPlanTab data={plan.executionPlan} />}
 
+
           {/* Overview */}
           <div className={`max-w-5xl mx-auto flex flex-col gap-5 ${showSettings || activeNav !== "Overview" ? "hidden" : ""}`}>
 
             {/* Row 1: Launch Snapshot + #1 Focus */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Launch Snapshot */}
               <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4">
                 <p className="font-semibold text-base">Launch Snapshot</p>
@@ -387,7 +404,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Row 2: Ranked Channels + Immediate Actions */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Ranked Channels */}
               <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-5">
                 <p className="font-semibold text-base">Ranked Channels</p>

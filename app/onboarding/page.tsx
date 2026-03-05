@@ -193,7 +193,7 @@ export default function Onboarding() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Top bar */}
-      <div className="px-8 py-5 flex items-center justify-between border-b border-gray-100">
+      <div className="px-5 md:px-8 py-5 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-4">
           {step > 0 ? (
             <button
@@ -241,7 +241,7 @@ export default function Onboarding() {
               <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
                 Question {step + 1}
               </p>
-              <h2 className="text-3xl font-black">{current.question}</h2>
+              <h2 className="text-2xl md:text-3xl font-black">{current.question}</h2>
               <p className="text-sm text-gray-400">{current.helper}</p>
             </div>
             <div className="flex flex-col gap-3">
@@ -279,7 +279,7 @@ export default function Onboarding() {
               <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
                 Question 1
               </p>
-              <h2 className="text-3xl font-black">Enter your product link</h2>
+              <h2 className="text-2xl md:text-3xl font-black">Enter your product link</h2>
               <p className="text-sm text-gray-400">
                 We'll analyze this to personalize your dashboard.
               </p>
@@ -307,7 +307,7 @@ export default function Onboarding() {
               <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
                 Question {step + 1}
               </p>
-              <h2 className="text-3xl font-black">{current.question}</h2>
+              <h2 className="text-2xl md:text-3xl font-black">{current.question}</h2>
             </div>
             <div className="flex flex-col gap-3">
               {current.options.map((option) => (

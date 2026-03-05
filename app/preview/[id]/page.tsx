@@ -85,7 +85,7 @@ export default function PreviewPage() {
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg tracking-tight">LaunchAI</Link>
         <button
           onClick={handleUnlock}
@@ -104,7 +104,7 @@ export default function PreviewPage() {
             <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
             <span className="text-xs font-semibold text-green-700">Analysis complete</span>
           </div>
-          <h1 className="text-4xl font-black tracking-tight leading-tight">
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
             Your {plan.productName} launch plan is ready.
           </h1>
           <p className="text-gray-500 text-sm leading-relaxed">{plan.tagline}</p>

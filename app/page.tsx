@@ -74,9 +74,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex items-center justify-between">
         <span className="font-bold text-lg tracking-tight">LaunchAI</span>
-        <div className="flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8">
           <button
             onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth", block: "center" })}
             className="text-sm text-gray-500 hover:text-black transition-colors"
@@ -120,19 +120,19 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section id="hero" className="relative flex flex-col items-center text-center px-6 pt-20 pb-28 overflow-hidden">
+      <section id="hero" className="relative flex flex-col items-center text-center px-6 pt-16 md:pt-20 pb-24 md:pb-28 overflow-hidden">
         {/* Dot grid */}
         <div className="absolute inset-0 opacity-[0.35]" style={{ backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 40%, transparent 30%, white 100%)" }} />
 
         <div className="relative flex flex-col items-center">
-          <p className="animate-fade-in-up text-xs font-semibold tracking-widest text-gray-400 uppercase mb-10" style={{ animationDelay: "0ms" }}>
+          <p className="animate-fade-in-up text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8 md:mb-10" style={{ animationDelay: "0ms" }}>
             For AI Builders &amp; Vibe Coders
           </p>
-          <h1 className="animate-fade-in-up text-6xl font-black leading-[1.1] max-w-2xl mb-8" style={{ animationDelay: "100ms" }}>
+          <h1 className="animate-fade-in-up text-4xl md:text-6xl font-black leading-[1.1] max-w-2xl mb-6 md:mb-8" style={{ animationDelay: "100ms" }}>
             You built the product. We build the launch.
           </h1>
-          <p className="animate-fade-in-up text-lg text-gray-500 max-w-xl mb-12 whitespace-nowrap" style={{ animationDelay: "200ms" }}>
+          <p className="animate-fade-in-up text-base md:text-lg text-gray-500 max-w-xl mb-10 md:mb-12" style={{ animationDelay: "200ms" }}>
             Get a personalized{" "}
             <span
               className="inline-block text-center text-black font-semibold transition-all duration-300"
@@ -144,24 +144,24 @@ export default function Home() {
           </p>
           <Link
             href="/onboarding"
-            className="animate-fade-in-up bg-black text-white px-16 py-5 rounded-xl font-semibold text-base hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200"
+            className="animate-fade-in-up bg-black text-white px-10 md:px-16 py-4 md:py-5 rounded-xl font-semibold text-base hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200"
             style={{ animationDelay: "300ms" }}
           >
             Build My Launch Plan
           </Link>
 
           {/* Trust stats */}
-          <div className="animate-fade-in-up flex items-center gap-6 mt-7 text-xs text-gray-400" style={{ animationDelay: "450ms" }}>
+          <div className="animate-fade-in-up flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-7 text-xs text-gray-400" style={{ animationDelay: "450ms" }}>
             <span className="flex items-center gap-1.5">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               ~12 second preview
             </span>
-            <span className="w-px h-3 bg-gray-200" />
+            <span className="hidden sm:inline-block w-px h-3 bg-gray-200" />
             <span className="flex items-center gap-1.5">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               Personalized to your product
             </span>
-            <span className="w-px h-3 bg-gray-200" />
+            <span className="hidden sm:inline-block w-px h-3 bg-gray-200" />
             <span className="flex items-center gap-1.5">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               $19 one-time
@@ -171,13 +171,13 @@ export default function Home() {
       </section>
 
       {/* Preview */}
-      <section id="preview" className="bg-gray-50 px-6 py-20">
+      <section id="preview" className="bg-gray-50 px-6 py-16 md:py-20">
         <div className="fade-up">
-          <h2 className="text-3xl font-bold text-center mb-10">🚀 Preview of what you&apos;ll get</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-10">🚀 Preview of what you&apos;ll get</h2>
         </div>
 
-        {/* Dashboard mockup */}
-        <div className="fade-up max-w-6xl mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-md" style={{ transitionDelay: "100ms" }}>
+        {/* Dashboard mockup — desktop only */}
+        <div className="fade-up hidden md:block max-w-6xl mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-md" style={{ transitionDelay: "100ms" }}>
           {/* Header */}
           <div className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -269,21 +269,39 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="fade-up flex justify-center mt-10" style={{ transitionDelay: "200ms" }}>
-          <Link href="/onboarding" className="bg-black text-white px-16 py-5 rounded-xl font-semibold text-base hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200">
+        {/* Mobile preview cards — shown instead of mockup on small screens */}
+        <div className="md:hidden fade-up flex flex-col gap-3 max-w-sm mx-auto" style={{ transitionDelay: "100ms" }}>
+          {[
+            { icon: "🎯", title: "Positioning upgrade", desc: "Rewritten headline + value prop for your product" },
+            { icon: "🚀", title: "Top revenue channels", desc: "Ranked by speed to first paying user" },
+            { icon: "✅", title: "Immediate actions", desc: "Highest-impact tasks with time estimates" },
+            { icon: "📅", title: "4-week execution plan", desc: "Week-by-week roadmap built for your stage" },
+          ].map((card) => (
+            <div key={card.title} className="bg-white border border-gray-200 rounded-xl px-4 py-4 flex items-center gap-3">
+              <span className="text-xl shrink-0">{card.icon}</span>
+              <div>
+                <p className="text-sm font-semibold">{card.title}</p>
+                <p className="text-xs text-gray-400 mt-0.5">{card.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="fade-up flex justify-center mt-8 md:mt-10" style={{ transitionDelay: "200ms" }}>
+          <Link href="/onboarding" className="bg-black text-white px-10 md:px-16 py-4 md:py-5 rounded-xl font-semibold text-base hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200">
             Build My Launch Plan
           </Link>
         </div>
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="relative px-6 py-24 overflow-hidden" style={{ background: "linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)" }}>
+      <section id="how-it-works" className="relative px-6 py-20 md:py-24 overflow-hidden" style={{ background: "linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)" }}>
         <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="relative">
           <div className="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-16">How it works</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 md:mb-16">How it works</h2>
           </div>
-          <div className="max-w-3xl mx-auto grid grid-cols-3 gap-8 text-center">
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 text-center">
             {[
               {
                 delay: "100ms",
@@ -316,12 +334,12 @@ export default function Home() {
       </section>
 
       {/* What You'll Get */}
-      <section className="px-6 py-20">
-        <div className="fade-up text-center mb-12">
-          <h2 className="text-3xl font-bold mb-2">Your Personalized Launch Plan Includes</h2>
+      <section className="px-6 py-16 md:py-20">
+        <div className="fade-up text-center mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">Your Personalized Launch Plan Includes</h2>
           <p className="text-sm text-gray-400">Based on your product and answers, LaunchAI generates a custom launch strategy.</p>
         </div>
-        <div className="max-w-4xl mx-auto grid grid-cols-2 gap-4">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
             {
               title: "🎯 Positioning Upgrade",
@@ -348,7 +366,7 @@ export default function Home() {
               delay: "300ms",
             },
           ].map((card) => (
-            <div key={card.title} className="fade-up border border-gray-200 rounded-2xl p-7 flex flex-col gap-3" style={{ transitionDelay: card.delay }}>
+            <div key={card.title} className="fade-up border border-gray-200 rounded-2xl p-6 md:p-7 flex flex-col gap-3" style={{ transitionDelay: card.delay }}>
               <div className="flex items-start justify-between gap-2">
                 <p className="font-semibold">{card.title}</p>
                 <span className="text-[10px] text-gray-400 border border-gray-200 rounded-full px-2 py-0.5 shrink-0">Generated for your product</span>
@@ -363,17 +381,17 @@ export default function Home() {
       </section>
 
       {/* Built Specifically */}
-      <section className="relative bg-gray-50 px-6 py-24 overflow-hidden">
+      <section className="relative bg-gray-50 px-6 py-20 md:py-24 overflow-hidden">
         <div className="absolute left-0 top-0 h-full w-48 opacity-40" style={{ backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
         <div className="absolute right-0 top-0 h-full w-48 opacity-40" style={{ backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
 
         <div className="relative max-w-3xl mx-auto">
-          <div className="fade-up text-center mb-12">
-            <h2 className="text-3xl font-bold mb-2">Built around your product</h2>
+          <div className="fade-up text-center mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">Built around your product</h2>
             <p className="text-sm text-gray-400">LaunchAI analyzes your product and generates a strategy tailored to it.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { title: "Uses your app name + homepage copy", detail: "No generic advice — every output references your actual product.", delay: "0ms" },
               { title: "Detects weak messaging and rewrites it", detail: "Spots vague headlines and replaces them with specific, compelling copy.", delay: "100ms" },
@@ -399,9 +417,9 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="bg-gray-50 px-6 py-20">
+      <section id="faq" className="bg-gray-50 px-6 py-16 md:py-20">
         <div className="fade-up">
-          <h2 className="text-4xl font-bold text-center mb-12">FAQ</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">FAQ</h2>
         </div>
         <div className="max-w-2xl mx-auto flex flex-col gap-3">
           {faqs.map((faq, i) => (
@@ -419,20 +437,20 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative bg-gray-100 px-6 py-32 text-center overflow-hidden">
+      <section className="relative bg-gray-100 px-6 py-24 md:py-32 text-center overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative fade-up">
-          <h2 className="text-5xl font-black text-black mb-4">Stop guessing your launch.</h2>
-          <p className="text-lg text-gray-500 mb-12">Get clarity, direction, and a plan built for your product.</p>
-          <Link href="/onboarding" className="bg-black text-white px-28 py-4 rounded-xl font-medium text-sm hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200">
+          <h2 className="text-3xl md:text-5xl font-black text-black mb-4">Stop guessing your launch.</h2>
+          <p className="text-base md:text-lg text-gray-500 mb-10 md:mb-12">Get clarity, direction, and a plan built for your product.</p>
+          <Link href="/onboarding" className="bg-black text-white px-10 md:px-28 py-4 rounded-xl font-medium text-sm hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all duration-200">
             Build My Launch Plan
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 px-8 py-16">
-        <div className="max-w-5xl mx-auto grid grid-cols-3 gap-12">
+      <footer className="bg-white border-t border-gray-100 px-6 md:px-8 py-12 md:py-16">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div className="flex flex-col gap-4">
             <p className="font-bold text-lg tracking-tight">LaunchAI</p>
             <p className="text-sm text-gray-400 leading-relaxed">Launch strategy for founders and builders.</p>
