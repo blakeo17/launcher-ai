@@ -132,18 +132,13 @@ export default function Home() {
           <h1 className="animate-fade-in-up text-6xl font-black leading-[1.1] max-w-2xl mb-8" style={{ animationDelay: "100ms" }}>
             You built the product. We build the launch.
           </h1>
-          <p className="animate-fade-in-up text-lg text-gray-500 max-w-sm mb-12" style={{ animationDelay: "200ms" }}>
+          <p className="animate-fade-in-up text-lg text-gray-500 max-w-xl mb-12 whitespace-nowrap" style={{ animationDelay: "200ms" }}>
             Get a personalized{" "}
-            <span className="relative inline-block">
-              {/* invisible spacer — locks width to longest word */}
-              <span className="invisible select-none" aria-hidden="true">positioning upgrade</span>
-              {/* visible cycling word */}
-              <span
-                className="absolute inset-0 flex items-center justify-center text-black font-semibold transition-all duration-300"
-                style={{ opacity: wordFading ? 0 : 1, transform: wordFading ? "translateY(6px)" : "translateY(0)" }}
-              >
-                {CYCLING_WORDS[wordIdx]}
-              </span>
+            <span
+              className="inline-block text-center text-black font-semibold transition-all duration-300"
+              style={{ width: "11rem", opacity: wordFading ? 0 : 1, transform: wordFading ? "translateY(6px)" : "translateY(0)" }}
+            >
+              {CYCLING_WORDS[wordIdx]}
             </span>{" "}
             built specifically for your app.
           </p>
