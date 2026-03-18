@@ -93,7 +93,7 @@ export default function PreviewPage() {
           disabled={unlocking}
           className="bg-black text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {unlocking ? "Setting up…" : "Get Full Plan — $19"}
+          {unlocking ? "Setting up…" : "Get Full Plan — $49"}
         </button>
       </nav>
 
@@ -114,7 +114,7 @@ export default function PreviewPage() {
             disabled={unlocking}
             className="mt-1 w-full bg-black text-white py-3.5 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {unlocking ? "Setting up…" : `Unlock My Full ${plan.productName} Plan — $19`}
+            {unlocking ? "Setting up…" : `Unlock My Full ${plan.productName} Plan — $49`}
           </button>
           <p className="text-xs text-gray-400 text-center">One-time payment · Instant access · No subscription</p>
         </div>
@@ -202,7 +202,7 @@ export default function PreviewPage() {
 
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-black leading-tight">
-                Get your full {plan.productName} strategy — $19
+                Get your full {plan.productName} strategy — $49
               </h2>
               <p className="text-sm text-white/60 max-w-xs">
                 Built specifically for your product. Not a template — a complete, actionable launch plan ready to execute today.
@@ -234,7 +234,7 @@ export default function PreviewPage() {
                 disabled={unlocking}
                 className="w-full bg-white text-black py-4 rounded-xl font-bold text-sm hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {unlocking ? "Setting up…" : `Get My Full Launch Plan — $19`}
+                {unlocking ? "Setting up…" : `Get My Full Launch Plan — $49`}
               </button>
               <p className="text-xs text-white/40">One-time payment · Instant access · No subscription</p>
             </div>

@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
               description:
                 "Complete launch plan: positioning strategy, revenue channels, week-by-week execution plan, and custom tools stack.",
             },
-            unit_amount: 1900, // $19.00
+            unit_amount: 4900, // $49.00
           },
           quantity: 1,
         },

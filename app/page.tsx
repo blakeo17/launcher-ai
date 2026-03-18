@@ -179,7 +179,7 @@ export default function Home() {
             <span className="hidden sm:inline-block w-px h-3 bg-gray-200" />
             <span className="flex items-center gap-1.5">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              $19 one-time
+              $49 one-time
             </span>
           </div>
         </div>
